@@ -1,21 +1,20 @@
 import { Platform, StyleSheet } from 'react-native';
 import { Color } from '../../utils/color';
-import Responsive from '../../helper/responsive';
 
 const styles = StyleSheet.create({
 
     container: {
         flex: 1,
         backgroundColor: Color.PRIMARY,
-        width: Responsive.relativeWidth(100),
-        height: Responsive.relativeHeight(100),
+        width: 40,
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         paddingTop: Platform.OS === 'ios' ? 20 : 0
 
     },
     logo: {
-        height: Responsive.relativeHeight(100),
+        height: 40,
         width: '100%',
         alignItems: 'center',
     },
@@ -30,8 +29,8 @@ const styles = StyleSheet.create({
         marginBottom: 65
     },
     line: {
-        height: Responsive.relativeHeight(0.2),
-        width: Responsive.relativeWidth(7),
+        height: 40,
+        width: 40,
         backgroundColor: Color.BLACK,
 
     }

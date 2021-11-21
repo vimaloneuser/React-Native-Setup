@@ -1,0 +1,18 @@
+{
+    "home": "Home",
+    "setting": "Setting",
+    "logout": "Log Out",
+    "darkMode": "Enable Dark mode",
+    "enableGujarati": "Enable Gujarati",
+    "welcome": "Welcome",
+    "signIntoContinue": "Sign in to continue!",
+    "signUptoContinue": "Sign up to continue!",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "login": "Login",
+    "forgotPassword": "Forgot Password",
+    "signup": "Sign up",
+    "newUser": "I am a new user",
+    "alreadyLogin": "Already an user"
+}

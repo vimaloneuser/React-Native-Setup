@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 import { Color } from '../../utils/color';
-import {
-    Label,
-    InputText,
-    Button
-} from '../../components';
 import {
     View,
     SafeAreaView,
     TouchableOpacity,
     KeyboardAvoidingView,
-    ScrollView,
+    ScrollView
 } from 'react-native';
-import CommonStyles from '../../utils/commonStyles';
 import { loginUserAction } from '../../redux/reducer/login/action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import styles from './styles'
 import Navigation from '../../helper/rootNavigation'
 import { Loading } from '../../../App';
+import styles from './styles'
+import commonStyle from '../../utils/commonStyles'
+import Common from '../../helper/common';
+import { Button, InputText, Label } from '../../components';
+import { useTheme } from '@react-navigation/native';
+import { LanguageContext } from '../../router';
 
 const mapStateToProps = state => {
     return {
@@ -34,107 +33,95 @@ const mapDispatchToProps = dispatch =>
         dispatch,
     );
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            emailError: '',
-            passwordError: '',
-            isSecurePaswword: true,
-            toggleIcon: 'eye-closed',
-            loading: false,
-        };
-    }
+const Login = (props) => {
+    const { setLoading } = useContext(Loading);
+    const [form, setForm] = useState({ email: null, password: null });
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const { colors } = useTheme();
+    const { language } = useContext(LanguageContext);
 
-    static contextType = Loading
-
-    login = () => {
-        this.context.showLoader();
-        this.props.loginUserAction({
+    const login = () => {
+        setLoading(true);
+        props.loginUserAction({
             "email": "eve.holt@reqres.in",
             "password": "cityslicka"
         }, () => {
-            this.context.hideLoader();
+            setLoading(false);
         })
     }
 
-    render() {
-        return (
-            <SafeAreaView style={CommonStyles.container}>
-                <View style={styles.container}>
-                    <ScrollView>
+    return (
+        <SafeAreaView style={commonStyle().container}>
+            <View style={styles().container}>
+                <ScrollView showsVerticalScrollIndicator={false} >
                     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                         keyboardVerticalOffset={Platform.OS == 'ios' ? 0 : 40}
                         enabled={Platform.OS === 'ios' ? true : false} >
-
-                        <View style={CommonStyles.ls_container}>
-                            <View style={CommonStyles.border}>
+                        <View style={commonStyle().ls_container}>
+                            <View style={commonStyle().border}>
                                 <Label xxxxlarge align="center"
-                                    bolder color={Color.BLACK}
+                                    bolder color={colors.text}
                                 >
-                                    Welcome,
+                                    {language.welcome},
                                 </Label>
                                 <Label xxxlarge align="center"
                                     color={Color.DARK_GRAY}>
-                                    Sign in to continue!
+                                    {language.signIntoContinue}!
                                 </Label>
                             </View>
                         </View>
 
                         <View
-                            style={CommonStyles.ls_container2}
+                            style={commonStyle().ls_container2}
                         >
-                            <InputText placeholder="Email"
+                            <InputText
+                                type="email"
+                                placeholder={language.email}
                                 iconname="email"
-                                onChangeText={text => this.setState({ email: text })}
-                                value={this.state.email} />
-                            <Label color={Color.ERROR} align="right" normal>
-                                {this.state.emailError}
-                            </Label>
+                                onChangeText={email => setForm({ ...form, email })}
+                                value={form.email}
+                            // error="Email is not valid"
+                            />
 
-                            <InputText placeholder="Password"
+                            <InputText
+                                placeholder={language.password}
+                                type="password"
                                 iconname="lock"
                                 eyeColor={Color.PRIMARY_DARK}
-                                onChangeText={text => this.setState({ password: text })}
-                                secureTextEntry={this.state.isSecurePaswword}
-                                CloseIconName={this.state.toggleIcon}
-                                onPress={this.handleToggle} />
-                            <Label color={Color.ERROR} align="right" normal>
-                                {this.state.passwordError}
-                            </Label>
-
+                                onChangeText={password => setForm({ ...form, password })}
+                                secureTextEntry={secureTextEntry}
+                                onPress={() => setSecureTextEntry(!secureTextEntry)}
+                            />
                             <TouchableOpacity
                                 style={{ alignItems: "flex-end" }}
                                 onPress={() => Navigation.navigate({ route: "SignUp" })}
                             >
                                 <Label color={Color.PRIMARY}
                                     bolder large>
-                                    Forgot password </Label>
+                                    {language.forgotPassword} </Label>
                             </TouchableOpacity>
 
                             <Button
-                                name="Login"
-                                onPress={this.login}
+                                name={language.login}
+                                onPress={login}
                             />
                             <TouchableOpacity
-                                style={CommonStyles.ls_container3}
+                                style={commonStyle().ls_container3}
                                 onPress={() => Navigation.navigate({ route: "SignUp" })}
                             >
-                                <Label color={Color.BLACK}
+                                <Label color={colors.text}
                                     large >
-                                    I am a new user, {''} <Label color={Color.PRIMARY}
+                                    {language.newUser} ?, {''} <Label color={Color.PRIMARY}
                                         bolder large>
-                                        Sign Up </Label>
+                                        {language.signup} </Label>
                                 </Label>
                             </TouchableOpacity>
                         </View>
                     </KeyboardAvoidingView>
-                    </ScrollView>
-                </View>
-            </SafeAreaView>
-        );
-    }
+                </ScrollView>
+            </View>
+        </SafeAreaView>
+    )
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

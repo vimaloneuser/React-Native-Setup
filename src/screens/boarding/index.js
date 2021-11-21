@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Image,
@@ -7,13 +7,13 @@ import {
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Routes from '../../router/routes';
 import { Color } from '../../utils/color';
-import { Label } from '../../components';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/dist/Octicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { onBoardingDoneAction } from '../../redux/reducer/common/action'
 import Navigation from '../../helper/rootNavigation';
+import {Label} from '../../components'
 
 const slides = [
   {
@@ -36,47 +36,7 @@ const slides = [
   },
 ];
 
-
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({
-    onBoardingDoneAction
-  },
-    dispatch,
-  );
-
-class Boarding extends React.Component {
-
-  state = {
-    onBoardingDone: false,
-  };
-
-  onDone = () => {
-    this.setState({ onBoardingDone: true });
-    this.props.onBoardingDoneAction(true);
-    Navigation.navigate({ route: Routes.NotAuthenticated });
-  };
-
-  RenderNextButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Icon name="arrow-right" style={{ fontSize: 25, color: Color.WHITE }} />
-      </View>
-    );
-  };
-  RenderDoneButton = props => {
-    return (
-      <TouchableOpacity onPress={this.onDone}>
-        <View style={styles.buttonCircle}>
-          <Icon
-            name="check"
-            style={{ fontSize: 25, fontWeight: 'bold', color: Color.WHITE }}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  };
-  RenderItem = ({ item }) => {
+  const RenderItem = ({ item }) => {
     return (
       <View
         style={{
@@ -86,28 +46,60 @@ class Boarding extends React.Component {
           justifyContent: 'space-around',
           paddingBottom: 100,
         }}>
-        <Label mt={40} align="center" xxxxlarge bolder>
+        {/* <Label mt={40} align="center" xxxxlarge bolder>
           {item.title}
-        </Label>
+        </Label> */}
         <Image style={styles.introImageStyle} source={item.image} />
-        <Label mt={30} align="center" xlarge>
+        {/* <Label mt={30} align="center" xlarge>
           {item.text}
-        </Label>
+        </Label> */}
       </View>
     );
   };
-  render() {
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    onBoardingDoneAction
+  },
+    dispatch,
+  );
+
+const Boarding = (props) => {
+  const onDone = () => {
+    props.onBoardingDoneAction(true);
+    Navigation.navigate({ route: Routes.NotAuthenticated });
+  };
+
+  const RenderNextButton = () => {
     return (
-      <AppIntroSlider
-        data={slides}
-        renderItem={this.RenderItem}
-        renderDoneButton={this.RenderDoneButton}
-        renderNextButton={this.RenderNextButton}
-        dotStyle={styles.dotStyle}
-        activeDotStyle={styles.activeDotStyle}
-      />
+      <View style={styles.buttonCircle}>
+        <Icon name="arrow-right" style={{ fontSize: 25, color: Color.WHITE }} />
+      </View>
     );
-  }
+  };
+  const RenderDoneButton = props => {
+    return (
+      <TouchableOpacity onPress={onDone}>
+        <View style={styles.buttonCircle}>
+          <Icon
+            name="check"
+            style={{ fontSize: 25, fontWeight: 'bold', color: Color.WHITE }}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <AppIntroSlider
+      data={slides}
+      renderItem={RenderItem}
+      renderDoneButton={RenderDoneButton}
+      renderNextButton={RenderNextButton}
+      dotStyle={styles.dotStyle}
+      activeDotStyle={styles.activeDotStyle}
+    />
+  );
 }
 
 export default connect('', mapDispatchToProps)(Boarding);

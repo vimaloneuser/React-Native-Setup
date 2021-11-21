@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import { Color } from "./color";
 import Responsive from "../helper/responsive";
+import { useTheme } from '@react-navigation/native';
 
-const Style = StyleSheet.create({
+const styles = () => StyleSheet.create({
     container: {
         justifyContent: 'center',
         flex: 1,
-        backgroundColor: Color.WHITE
+        backgroundColor: useTheme().colors.background
     },
     content1: {
         flex: 1,
@@ -38,7 +39,7 @@ const Style = StyleSheet.create({
         width: "100%",
         height: "20%",
         top: Responsive.relativeWidth(5),
-        marginBottom:Responsive.relativeWidth(5),
+        marginBottom: Responsive.relativeWidth(8),
     },
     ls_container2: {
         width: "100%",
@@ -47,7 +48,8 @@ const Style = StyleSheet.create({
     ls_container3: {
         marginTop: Responsive.relativeHeight(10),
         alignItems: "center",
-        paddingBottom: Responsive.relativeWidth(5)
+        paddingBottom: Responsive.relativeWidth(5),
+        marginBottom: Responsive.relativeHeight(5)
     },
     border: {
         width: '100%',
@@ -81,6 +83,6 @@ const Style = StyleSheet.create({
     screenOverlay: {
         flex: 1,
     }
-});
+})
 
-export default Style;
+export default styles;

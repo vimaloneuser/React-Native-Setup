@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { Color } from '../../utils/color';
 import { useTheme } from '@react-navigation/native';
+import Responsive from '../../helper/responsive';
 
 const styles = () => StyleSheet.create({
     container: {
@@ -8,6 +8,13 @@ const styles = () => StyleSheet.create({
         backgroundColor: useTheme().colors.background,
         justifyContent: "center",
         alignItems: "center"
+    },
+    switchContainer: {
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around",
+        paddingHorizontal: Responsive.relativeWidth(5)
     }
 })
 export default styles;

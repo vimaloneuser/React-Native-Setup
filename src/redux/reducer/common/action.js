@@ -13,3 +13,17 @@ export const logOutAction = () => {
   }
 }
 
+export const darkMode = (value) => {
+  return {
+    type: types.DarkMode,
+    payload: value
+  }
+}
+
+export const languageChange = (value) => {
+  return {
+    type: types.LANGUAGE,
+    payload: value
+  }
+}
+

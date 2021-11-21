@@ -11,24 +11,26 @@ import { Color } from './src/utils/color';
 import Common from './src/helper/common';
 import Responsive from './src/helper/responsive';
 import RNRestart from 'react-native-restart';
+import SplashScreen from 'react-native-splash-screen';
 
-export const Loading = React.createContext();
+export const Loading = React.createContext({ loading: false, setLoading: () => { } });
 
 const App = () => {
 
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    });
+  }, [])
+
   const [loading, setLoading] = useState(false);
-  const showLoader = () => setLoading(true);
-  const hideLoader = () => setLoading(false);
+  const loadingfn = { loading, setLoading };
 
   Dimensions.addEventListener('change', () => {
     let mode = Responsive.isPortrait() ? "Portrait" : "Landscape";
-    showLoader(true);
     Common.notifyMsg({
       message: `${mode} is turned on. Please wait... Application is being reloaded`
     });
-    setTimeout(() => {
-      RNRestart.Restart();
-    }, 2000);
   });
 
   return (
@@ -37,29 +39,18 @@ const App = () => {
         <NetworkConsumer>
           {({ isConnected }) => (
             <View style={{ flex: 1 }} >
-              <Loading.Provider value={{
-                showLoader,
-                hideLoader
-              }}>
-                <Loading.Consumer>
-                  {
-                    (fn) => (
-                      <>
-                        <Spinner
-                          visible={loading}
-                          textStyle={{ color: Color.WHITE }}
-                        />
-                        {
-                          isConnected != undefined && !isConnected &&
-                          <View style={Style.nointernetMessage}>
-                            <Label bolder xsmall color={Color.WHITE}>No Internet connection !</Label>
-                          </View>
-                        }
-                        <RootNavigator {...fn} />
-                      </>
-                    )
-                  }
-                </Loading.Consumer>
+              <Loading.Provider value={loadingfn}>
+                <Spinner
+                  visible={loading}
+                  textStyle={{ color: Color.WHITE }}
+                />
+                {
+                  isConnected != undefined && !isConnected &&
+                  <View style={Style.nointernetMessage}>
+                    <Label bolder xsmall color={Color.WHITE}>No Internet connection !</Label>
+                  </View>
+                }
+                <RootNavigator />
               </Loading.Provider>
             </View>
           )}

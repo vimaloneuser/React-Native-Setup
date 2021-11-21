@@ -1,0 +1,18 @@
+{
+    "home": "હોમ",
+    "setting": "સેટિંગ્સ",
+    "logout": "લોગ આઉટ",
+    "darkMode": "ડાર્ક મોડ ચાલુ કરો",
+    "enableGujarati": "ગુજરાતી ભાષા ચાલુ કરો",
+    "welcome": "વેલકમ",
+    "signIntoContinue": "આગળ વધવા લોગીન કરો",
+    "signUptoContinue": "આગળ વધવા રજીસ્ટર કરો",
+    "email": "ઇમેઇલ",
+    "password": "પાસવર્ડ",
+    "name": "નામ",
+    "login": "લોગીન",
+    "forgotPassword": "પાસવર્ડ ભૂલી ગયા",
+    "signup": "રેજિસ્ટર",
+    "newUser": "નવા યુઝર છો",
+    "alreadyLogin": "પેહલાથી યુઝર છો"
+}

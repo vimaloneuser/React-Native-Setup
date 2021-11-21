@@ -1,4 +1,4 @@
-import { Dimensions, PixelRatio } from 'react-native';
+import { Dimensions, PixelRatio, useWindowDimensions } from 'react-native';
 
 const dpi = PixelRatio.get()
 
@@ -19,8 +19,15 @@ const isLandscape = () => {
 const myWidth = Dimensions.get('window').width;
 const myHeight = Dimensions.get('window').height;
 
-const relativeWidth = num => (myWidth * num) / 100;
-const relativeHeight = num => (myHeight * num) / 100;
+const relativeWidth = (ratio) => {
+    const { width } = useWindowDimensions();
+    return width * ratio / 100;
+}
+
+const relativeHeight = (ratio) => {
+    const { height, width } = useWindowDimensions();
+    return isLandscape() ? width * ratio / 100 : height * ratio / 100;
+}
 
 const relativeFontSize = (fontSize) => {
     let fontSizeDpi = fontSize / dpi;

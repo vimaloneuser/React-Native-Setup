@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Home from '../screens/home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import { Color } from '../utils/color';
 import Responsive from '../helper/responsive';
+import Setting from '../screens/setting';
+import { LanguageContext } from '.';
 
 const Tab = createBottomTabNavigator();
 
 const Authenticated = () => {
+  const { language } = useContext(LanguageContext);
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -24,7 +28,7 @@ const Authenticated = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name={language.home}
         component={Home}
         options={{
           tabBarLabel: 'Dasboard',
@@ -35,8 +39,8 @@ const Authenticated = () => {
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Home}
+        name={language.setting}
+        component={Setting}
         options={{
           tabBarLabel: 'Settings',
           tabBarColor: Color.PRIMARY,

@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { Color } from '../../utils/color'
-import Responsive from '../../helper/responsive';
 
 const styles = StyleSheet.create({
     introImageStyle: {
-        width: Responsive.relativeWidth(82),
-        height: Responsive.relativeHeight(30)
+        width: 50,
+        height: 40
     },
     buttonCircle: {
         marginTop: 4,

@@ -13,3 +13,5 @@ export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 export const BOARDING_DONE = 'BOARDING_DONE';
 export const NO_INTERNET = '@@network-connectivity/FETCH_OFFLINE_MODE';
 export const LOGOUT = 'LOGOUT';
+export const DarkMode = 'DarkMode';
+export const LANGUAGE = 'LANGUAGE';

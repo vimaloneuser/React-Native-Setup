@@ -1,7 +1,9 @@
 import * as types from '../../constants/actionTypes';
 const initial = {
     boarding: false,
-    internet: true
+    internet: true,
+    darkMode: false,
+    enableGujarati: false
 };
 import { offlineActionTypes } from 'react-native-offline';
 
@@ -18,9 +20,18 @@ const commonReducer = (state = initial, action) => {
                 ...state,
             };
         case types.NO_INTERNET:
-            console.log("no internet")
             return {
                 ...state,
+            };
+        case types.DarkMode:
+            return {
+                ...state,
+                darkMode: action.payload
+            };
+        case types.LANGUAGE:
+            return {
+                ...state,
+                enableGujarati: action.payload
             };
         default:
             return state;

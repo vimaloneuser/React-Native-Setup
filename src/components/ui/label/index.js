@@ -1,73 +1,69 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { Color } from '../../../utils/color';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';;
 import Responsive from '../../../helper/responsive';
 
-const hp = (size) => {
-    return Responsive.relativeFontSize(size);
-}
 
-class Label extends React.Component {
+const Label = (props) => {
 
-    onClick = () => {
-        if (this.props.onPress)
-            this.props.onPress();
+    const onClick = () => {
+        if (props.onPress)
+            props.onPress();
     };
 
-    render() {
-        let stylesArray = [];
+    let stylesArray = [];
+    if (props.xxxxlarge)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(32) });
+    else if (props.xxxlarge)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(28) });
+    else if (props.xxlarge)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(25) });
+    else if (props.xlarge)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(22) });
+    else if (props.large)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(20) });
+    else if (props.normal)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(18) });
+    else if (props.small)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(16) });
+    else if (props.xsmall)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(14) });
+    else if (props.xxsmall)
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(13) });
+    else
+        stylesArray.push({ fontSize: Responsive.relativeFontSize(16) });
 
-        if (this.props.xxxxlarge)
-            stylesArray.push({ fontSize: hp(32) });
-        else if (this.props.xxxlarge)
-            stylesArray.push({ fontSize: hp(28) });
-        else if (this.props.xxlarge)
-            stylesArray.push({ fontSize: hp(25) });
-        else if (this.props.xlarge)
-            stylesArray.push({ fontSize: hp(22) });
-        else if (this.props.large)
-            stylesArray.push({ fontSize: hp(20) });
-        else if (this.props.normal)
-            stylesArray.push({ fontSize: hp(18) });
-        else if (this.props.small)
-            stylesArray.push({ fontSize: hp(15) });
-        else if (this.props.xsmall)
-            stylesArray.push({ fontSize: hp(13) });
-        else if (this.props.xxsmall)
-            stylesArray.push({ fontSize: hp(10) });
-        else
-            stylesArray.push({ fontSize: hp(15) });
+    if (props.bold)
+        stylesArray.push({ fontWeight: "500" });
+    else if (props.bolder)
+        stylesArray.push({ fontWeight: "bold" });
+    else if (props.light)
+        stylesArray.push({ fontWeight: "400" });
+    else if (props.lighter)
+        stylesArray.push({ fontWeight: "200" });
+    else
+        stylesArray.push({ fontWeight: "normal" });
 
-        if (this.props.bold)
-            stylesArray.push({ fontWeight: "500" });
-        else if (this.props.bolder)
-            stylesArray.push({ fontWeight: "bold" });
-        else if (this.props.light)
-            stylesArray.push({ fontWeight: "400" });
-        else if (this.props.lighter)
-            stylesArray.push({ fontWeight: "200" });
-        else
-            stylesArray.push({ fontWeight: "normal" });
+    stylesArray.push({
+        color: props.color,
+        marginTop: props.mt,
+        marginBottom: props.mb,
+        marginStart: props.ms,
+        marginEnd: props.me,
+        textAlign: props.align,
+        lineHeight: props.lineHeight,
+        padding: props.padding
+    });
+    stylesArray.push(props.style);
 
-        stylesArray.push({
-            color: this.props.color,
-            marginTop: this.props.mt,
-            marginBottom: this.props.mb,
-            marginStart: this.props.ms,
-            marginEnd: this.props.me,
-            textAlign: this.props.align,
-            lineHeight: this.props.lineHeight,
-            padding: this.props.padding
-        });
-        stylesArray.push(this.props.style);
-        return (
-            <Text allowFontScaling={false} numberOfLines={this.props.singleLine ? 1 : null} style={stylesArray}
-                onPress={this.props.onPress ? this.onClick : null} >
-                {this.props.children}
-            </Text>
-        );
-    }
+    return (
+        <Text allowFontScaling={false} numberOfLines={props.singleLine ? 1 : null} style={stylesArray}
+            onPress={props.onPress ? onClick : null} >
+            {props.children}
+        </Text>
+    );
+
 }
 
 Label.defaultProps = {
