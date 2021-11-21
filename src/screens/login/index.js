@@ -14,7 +14,6 @@ import Navigation from '../../helper/rootNavigation'
 import { Loading } from '../../../App';
 import styles from './styles'
 import commonStyle from '../../utils/commonStyles'
-import Common from '../../helper/common';
 import { Button, InputText, Label } from '../../components';
 import { useTheme } from '@react-navigation/native';
 import { LanguageContext } from '../../router';
@@ -41,13 +40,10 @@ const Login = (props) => {
     const { language } = useContext(LanguageContext);
 
     const login = () => {
-        setLoading(true);
         props.loginUserAction({
             "email": "eve.holt@reqres.in",
             "password": "cityslicka"
-        }, () => {
-            setLoading(false);
-        })
+        }, setLoading)
     }
 
     return (

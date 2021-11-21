@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import store from './src/redux/store';
 import { NetworkProvider, NetworkConsumer } from 'react-native-offline';
 import { View, Dimensions } from 'react-native';
-import Style from './src/utils/commonStyles'
+import commonStyles from './src/utils/commonStyles'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Label } from './src/components';
 import { Color } from './src/utils/color';
@@ -46,7 +46,13 @@ const App = () => {
                 />
                 {
                   isConnected != undefined && !isConnected &&
-                  <View style={Style.nointernetMessage}>
+                  <View style={{
+                    justifyContent: 'center',
+                    height: 50,
+                    width: '100%',
+                    backgroundColor: Color.PRIMARY_DARK,
+                    alignItems: 'center',
+                  }}>
                     <Label bolder xsmall color={Color.WHITE}>No Internet connection !</Label>
                   </View>
                 }

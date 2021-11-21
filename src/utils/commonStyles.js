@@ -75,7 +75,7 @@ const styles = () => StyleSheet.create({
     },
     nointernetMessage: {
         justifyContent: 'center',
-        height: Responsive.relativeHeight(7),
+        height: 100,
         width: '100%',
         backgroundColor: Color.PRIMARY_DARK,
         alignItems: 'center',

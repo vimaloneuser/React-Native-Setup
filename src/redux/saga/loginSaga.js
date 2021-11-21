@@ -8,12 +8,14 @@ import Navigation from '../../helper/rootNavigation';
 import CommonHelper from '../../helper/common';
 
 export function* loginUser(action) {
+    let { setLoading, param } = action.payload;
     try {
         const result = yield call(callService, {
             url: apiUrl.login,
             method: 'POST',
-            params: action.payload.param,
-            showMsg: true
+            params: param,
+            showMsg: true,
+            setLoading
         });
         if (result) {
             if (result?.token) {
@@ -21,9 +23,7 @@ export function* loginUser(action) {
                 Navigation.navigate({ route: Routes.Authenticated, reset: true });
                 CommonHelper.notifyMsg({ message: "Login Success" });
             }
-            action.payload.cb();
         }
     } catch (error) {
-        action.payload.cb();
     }
 }
